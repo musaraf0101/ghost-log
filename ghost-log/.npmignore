@@ -1,0 +1,9 @@
+docs/
+.claude/
+.ghost/
+.gitignore
+package-lock.json
+
+# exclude all markdown except README
+*.md
+!README.md

@@ -1,0 +1,37 @@
+{
+  "name": "ghost-log",
+  "version": "1.0.0",
+  "description": "Your silent dev journal — captures the 'why' behind every commit automatically",
+  "main": "bin/cli.js",
+  "bin": {
+    "ghost": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node bin/cli.js"
+  },
+  "keywords": [
+    "developer-journal",
+    "git-hooks",
+    "devtools",
+    "cli",
+    "documentation"
+  ],
+  "author": "Musaraf",
+  "license": "Unlicense",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/musaraf0101/ghost-log.git"
+  },
+  "homepage": "https://github.com/musaraf0101/ghost-log#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "chokidar": "^3.6.0",
+    "commander": "^14.0.3",
+    "inquirer": "^8.2.7",
+    "simple-git": "^3.36.0"
+  }
+}

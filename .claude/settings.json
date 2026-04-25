@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm init *)"
+    ],
+    "additionalDirectories": [
+      "d:\\own\\project_plan\\ghost-log"
+    ]
+  }
+}
