@@ -1,6 +1,6 @@
 {
   "name": "ghost-log",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Your silent dev journal — captures the 'why' behind every commit automatically",
   "main": "bin/cli.js",
   "bin": {
