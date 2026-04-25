@@ -6,11 +6,6 @@ const chalk = require('chalk');
 
 const HOOK_SCRIPT = `#!/bin/sh
 # Ghost Log: prepare-commit-msg hook
-node "$(git rev-parse --show-toplevel)/node_modules/.bin/ghost-hook" "$1"
-`;
-
-const HOOK_SCRIPT_GLOBAL = `#!/bin/sh
-# Ghost Log: prepare-commit-msg hook
 ghost-hook "$1" 2>/dev/null || true
 `;
 
@@ -46,22 +41,9 @@ function ghostInit() {
   const hooksDir = path.join(gitRoot, '.git', 'hooks');
   const hookPath = path.join(hooksDir, 'prepare-commit-msg');
 
-  const hookContent = fs.existsSync(path.join(gitRoot, 'node_modules'))
-    ? HOOK_SCRIPT
-    : HOOK_SCRIPT_GLOBAL;
-
   fs.mkdirSync(hooksDir, { recursive: true });
-  fs.writeFileSync(hookPath, hookContent, { mode: 0o755 });
+  fs.writeFileSync(hookPath, HOOK_SCRIPT, { mode: 0o755 });
   console.log(chalk.green('✔  Installed prepare-commit-msg git hook'));
-
-  // Write ghost-hook bin shim into node_modules/.bin if possible
-  const binDir = path.join(gitRoot, 'node_modules', '.bin');
-  if (fs.existsSync(binDir)) {
-    const hookBin = path.join(binDir, 'ghost-hook');
-    const hookSrc = path.resolve(__dirname, 'hook.js');
-    const shim = `#!/usr/bin/env node\nrequire(${JSON.stringify(hookSrc)})(process.argv[2]);\n`;
-    fs.writeFileSync(hookBin, shim, { mode: 0o755 });
-  }
 
   console.log(chalk.cyan('\n👻 Ghost Log is ready! Run `ghost watch` to start capturing your thoughts.\n'));
 }

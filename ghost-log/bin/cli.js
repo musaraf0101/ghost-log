@@ -8,13 +8,14 @@ const chalk = require('chalk');
 const { ghostInit } = require('../src/init');
 const { ghostReplay } = require('../src/replay');
 const { startWatcher } = require('../src/watcher');
+const { version } = require('../package.json');
 
 const program = new Command();
 
 program
   .name('ghost')
   .description(chalk.cyan('Ghost Log - your silent dev journal'))
-  .version('1.0.0');
+  .version(version);
 
 program
   .command('init')

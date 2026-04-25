@@ -4,6 +4,6 @@ docs/
 .gitignore
 package-lock.json
 
-# exclude all markdown except README
+# exclude all markdown except README 
 *.md
 !README.md

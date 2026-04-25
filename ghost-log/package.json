@@ -1,10 +1,11 @@
 {
   "name": "ghost-log",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Your silent dev journal — captures the 'why' behind every commit automatically",
   "main": "bin/cli.js",
   "bin": {
-    "ghost": "./bin/cli.js"
+    "ghost": "bin/cli.js",
+    "ghost-hook": "src/hook.js"
   },
   "scripts": {
     "start": "node bin/cli.js"
@@ -24,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/musaraf0101/ghost-log.git"
+    "url": "git+https://github.com/musaraf0101/ghost-log.git"
   },
   "homepage": "https://github.com/musaraf0101/ghost-log#readme",
   "dependencies": {
