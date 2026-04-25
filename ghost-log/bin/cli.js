@@ -24,7 +24,7 @@ program
 program
   .command('watch')
   .description('Start the background watcher (captures your "why" thoughts)')
-  .option('-q, --quiet-period <minutes>', 'minutes of silence before prompting', '10')
+  .option('-q, --quiet-period <minutes>', 'minutes of silence before prompting', '1')
   .action((opts) => startWatcher(parseInt(opts.quietPeriod, 10)));
 
 program

@@ -8,9 +8,7 @@ const path = require('path');
 
 const { saveThought } = require('./store');
 
-const CODE_EXTENSIONS = /\.(js|ts|jsx|tsx|py|rb|go|rs|java|c|cpp|cs|php|swift|kt|dart|vue|svelte|html|css|scss|json|yaml|yml|md|sh|bash)$/;
-
-function startWatcher(quietMinutes = 10) {
+function startWatcher(quietMinutes = 1) {
   const cwd = process.cwd();
   const quietMs = quietMinutes * 60 * 1000;
   let silenceTimer = null;
@@ -23,21 +21,27 @@ function startWatcher(quietMinutes = 10) {
 
   const watcher = chokidar.watch(cwd, {
     ignored: [
-      /(^|[/\\])\../, // dot files/dirs
+      /(^|[/\\])\../,
       /node_modules/,
       /\.ghost/,
       /\.git/,
     ],
     persistent: true,
     ignoreInitial: true,
+    awaitWriteFinish: {
+      stabilityThreshold: 200,
+      pollInterval: 100,
+    },
   });
 
   function onActivity(filePath) {
-    if (!CODE_EXTENSIONS.test(filePath)) return;
     if (isPrompting) return;
 
-    sessionFiles.add(path.relative(cwd, filePath));
+    const rel = path.relative(cwd, filePath);
+    sessionFiles.add(rel);
     lastActivity = Date.now();
+
+    process.stdout.write(chalk.gray(`  ~ ${rel}\n`));
 
     clearTimeout(silenceTimer);
     silenceTimer = setTimeout(() => triggerPrompt(), quietMs);
