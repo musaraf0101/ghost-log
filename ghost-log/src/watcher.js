@@ -19,6 +19,8 @@ function startWatcher(quietMinutes = 1) {
   console.log(chalk.cyan(`\n👻 Ghost Log is watching... (quiet period: ${quietMinutes}m)\n`));
   console.log(chalk.gray('   Ctrl+C to stop\n'));
 
+  const isWindows = process.platform === 'win32';
+
   const watcher = chokidar.watch(cwd, {
     ignored: [
       /(^|[/\\])\../,
@@ -28,10 +30,20 @@ function startWatcher(quietMinutes = 1) {
     ],
     persistent: true,
     ignoreInitial: true,
+    usePolling: isWindows,
+    interval: 1000,
     awaitWriteFinish: {
-      stabilityThreshold: 200,
-      pollInterval: 100,
+      stabilityThreshold: 300,
+      pollInterval: 150,
     },
+  });
+
+  watcher.on('ready', () => {
+    console.log(chalk.gray(`  Watching: ${cwd}\n`));
+  });
+
+  watcher.on('error', (err) => {
+    console.log(chalk.red(`  Watcher error: ${err.message}`));
   });
 
   function onActivity(filePath) {
